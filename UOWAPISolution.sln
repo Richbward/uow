@@ -1,15 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{70DD5F1E-0FE6-4B94-BAD3-62E3AFC6C26E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uow", "src\uow\uow.csproj", "{CCDFCDAA-8D17-450D-8F76-141B3E38E7FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "uowAPI", "src\uowAPI\uowAPI.csproj", "{CCDFCDAA-8D17-450D-8F76-141B3E38E7FA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{CA6AEBC7-14C6-482C-931C-CC4724F255DF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "uow.test", "uow.test", "{CA6AEBC7-14C6-482C-931C-CC4724F255DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uow.Tests", "test\uow.Tests\uow.Tests.csproj", "{3DEA78C0-7CC8-43A6-A909-4C1A392E489C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "uow.Tests", "test\uow.Tests\uow.Tests.csproj", "{3DEA78C0-7CC8-43A6-A909-4C1A392E489C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CE9D4D08-A0C9-452A-A1D3-DC04F9DED261}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,9 +24,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{CCDFCDAA-8D17-450D-8F76-141B3E38E7FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -49,8 +51,14 @@ Global
 		{3DEA78C0-7CC8-43A6-A909-4C1A392E489C}.Release|x86.ActiveCfg = Release|Any CPU
 		{3DEA78C0-7CC8-43A6-A909-4C1A392E489C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CCDFCDAA-8D17-450D-8F76-141B3E38E7FA} = {70DD5F1E-0FE6-4B94-BAD3-62E3AFC6C26E}
 		{3DEA78C0-7CC8-43A6-A909-4C1A392E489C} = {CA6AEBC7-14C6-482C-931C-CC4724F255DF}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {89E486D8-400D-45F3-ACF5-30AB17E13F58}
 	EndGlobalSection
 EndGlobal
