@@ -10,12 +10,10 @@ namespace uow.Models
 {
     public class TransactionModel
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
-        public Guid GUID { get; set; }
-
-        public int GarageId { get; set; }
-        public int VehicleId { get; set; }        
+        public Guid GarageId { get; set; }
+        public Guid VehicleId { get; set; }        
         public DateTime Entered { get; set; }
         public DateTime Exited { get; set; }
         public decimal Discount { get; set; }

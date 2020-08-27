@@ -35,7 +35,7 @@ namespace uow.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> PutTransactionItem(int id, [FromBody] TransactionModel transaction)
+        public async Task<ActionResult> PutTransactionItem(Guid id, [FromBody] TransactionModel transaction)
         {
             if (id != transaction.Id)
             {
@@ -50,7 +50,7 @@ namespace uow.Controllers
         }
 
         [HttpGet("{Id}")]
-        public async Task<ActionResult<TransactionModel>> GetTransactionById(int Id)
+        public async Task<ActionResult<TransactionModel>> GetTransactionById(Guid Id)
         {
             var transaction = await _transactionsRepository.GetTransactionByIdAsync(Id);
 
@@ -65,7 +65,7 @@ namespace uow.Controllers
         }
 
         [HttpPatch("{id}")]
-        public async Task<ActionResult> PartialTransactionUpdate(int id, JsonPatchDocument<TransactionModel> patchDoc)
+        public async Task<ActionResult> PartialTransactionUpdate(Guid id, [FromBody] JsonPatchDocument<TransactionModel> patchDoc)
         {
             var transaction = await _transactionsRepository.GetTransactionByIdAsync(id);
 
@@ -84,10 +84,11 @@ namespace uow.Controllers
 
             _mapper.Map(transactionToPatch, transaction);
 
-            _transactionsRepository.UpdateTransaction(transaction);
+            _transactionsRepository.UpdateTransactionAsync(transaction);
             var result = await _transactionsRepository.SaveChangesAsync();
 
-            return NoContent();
+            //return NoContent();
+            return Ok(transaction);
         }
 
         //[HttpGet("{plateNumber}")]

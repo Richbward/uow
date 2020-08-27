@@ -12,10 +12,10 @@ namespace uowAPI.Services
 
         Task<int> PutTransactionItemAsync(Transaction transaction);
 
-        Task<Transaction> GetTransactionByIdAsync(int Id);
+        Task<Transaction> GetTransactionByIdAsync(Guid Id);
 
         Task<bool> SaveChangesAsync();
 
-        void UpdateTransaction(Transaction transaction);
+        void UpdateTransactionAsync(Transaction transaction);
     }
 }

@@ -20,7 +20,7 @@ namespace uowAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetGaragesAsync()
+        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
         {
             var customers = await _customersRepository.GetCustomersAsync();
             return Ok(customers);

@@ -12,17 +12,16 @@ namespace uow.Entities
     public class Transaction
     {
         [Key]
-        public int Id { get; set; }
-
-        [Required]
-        public Guid GUID { get; set; }
+        public Guid Id { get; set; }
 
         [ForeignKey("Garage")] 
-        public int GarageId { get; set; }
+        public Guid GarageId { get; set; }
+        public Garage Garage { get; set; }
 
         [ForeignKey("Vehicle")] 
-        public int VehicleId { get; set; }
-        
+        public Guid VehicleId { get; set; }
+        public Vehicle Vehicle { get; set; }
+
         // Doing this just for testing
         [Required]
         public DateTime Entered
@@ -39,13 +38,12 @@ namespace uow.Entities
 
         private DateTime? dateCreated = null;
 
-
-
-        public DateTime Exited { get; set; }
+        public DateTime? Exited { get; set; }
+        
         [Column(TypeName = "decimal(5, 2)")] 
-        public decimal Discount { get; set; }
+        public decimal? Discount { get; set; }
 
         [Column(TypeName = "decimal(5, 2)")] 
-        public decimal Charge { get; set; }
+        public decimal? Charge { get; set; }
     }
 }

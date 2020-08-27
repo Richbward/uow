@@ -72,9 +72,9 @@ namespace uow.Tests
         { //Arrange
             var transaction = new Entities.Transaction
             {
-                GUID = new Guid("DCF08158-F984-47E9-B082-13578527E25C"),
-                GarageId = 1,
-                VehicleId = 2,
+                Id = new Guid("DCF08158-F984-47E9-B082-13578527E25C"),
+                GarageId = new Guid("70519DC7-F383-45F8-BEBB-37A7D41830DA"),
+                VehicleId = new Guid("FAEC24B9-7CBD-4069-AD6B-497734DD5BD4"),
                 Entered = new DateTime(2020,8,24)
             };
             

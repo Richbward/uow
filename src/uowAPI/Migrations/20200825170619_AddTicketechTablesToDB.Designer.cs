@@ -6,12 +6,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using uow.Entities;
-using uow.Models;
 
 namespace uowAPI.Migrations
 {
     [DbContext(typeof(uowContext))]
-    [Migration("20200825012127_AddTicketechTablesToDB")]
+    [Migration("20200825170619_AddTicketechTablesToDB")]
     partial class AddTicketechTablesToDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,12 +21,11 @@ namespace uowAPI.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("uow.Models.Customer", b =>
+            modelBuilder.Entity("uow.Entities.Customer", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
@@ -52,9 +50,6 @@ namespace uowAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
-
-                    b.Property<Guid>("GUID")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("HomePhone")
                         .HasColumnType("nvarchar(50)")
@@ -106,12 +101,11 @@ namespace uowAPI.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("uow.Models.Garage", b =>
+            modelBuilder.Entity("uow.Entities.Garage", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
@@ -132,9 +126,6 @@ namespace uowAPI.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
-
-                    b.Property<Guid>("GUID")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -173,12 +164,11 @@ namespace uowAPI.Migrations
                     b.ToTable("Garages");
                 });
 
-            modelBuilder.Entity("uow.Models.Transaction", b =>
+            modelBuilder.Entity("uow.Entities.Transaction", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Charge")
                         .HasColumnType("decimal(5, 2)");
@@ -192,31 +182,28 @@ namespace uowAPI.Migrations
                     b.Property<DateTime>("Exited")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("GUID")
+                    b.Property<Guid>("GarageId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("GarageId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VehicleId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("VehicleId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GarageId");
+
+                    b.HasIndex("VehicleId");
 
                     b.ToTable("Transactions");
                 });
 
-            modelBuilder.Entity("uow.Models.Vehicle", b =>
+            modelBuilder.Entity("uow.Entities.Vehicle", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("GUID")
+                    b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Make")
@@ -239,7 +226,33 @@ namespace uowAPI.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CustomerId");
+
                     b.ToTable("Vehicles");
+                });
+
+            modelBuilder.Entity("uow.Entities.Transaction", b =>
+                {
+                    b.HasOne("uow.Entities.Garage", "Garage")
+                        .WithMany()
+                        .HasForeignKey("GarageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("uow.Entities.Vehicle", "Vehicle")
+                        .WithMany()
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("uow.Entities.Vehicle", b =>
+                {
+                    b.HasOne("uow.Entities.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

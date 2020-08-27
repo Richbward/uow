@@ -12,15 +12,15 @@ namespace uowAPI.Services
     public class TransactionsRepository : ITransactionsRepository
     {
         private readonly uowContext _context;
-        private readonly ILogger<TransactionsRepository> _logger;
-        private CancellationTokenSource _cancellationTokenSource;
+        //private readonly ILogger<TransactionsRepository> _logger;
+        //private CancellationTokenSource _cancellationTokenSource;
 
-        public TransactionsRepository(uowContext context,
-            ILogger<TransactionsRepository> logger)
-        {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        }
+        //public TransactionsRepository(uowContext context,
+        //    ILogger<TransactionsRepository> logger)
+        //{
+        //    _context = context ?? throw new ArgumentNullException(nameof(context));
+        //    _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        //}
 
         public TransactionsRepository(uowContext context)
         {
@@ -32,7 +32,7 @@ namespace uowAPI.Services
             return await _context.Transactions.ToListAsync();
         }
 
-        public async Task<Transaction> GetTransactionByIdAsync(int Id)
+        public async Task<Transaction> GetTransactionByIdAsync(Guid Id)
         {
             return await _context.Transactions.FindAsync(Id);
         }
@@ -50,7 +50,7 @@ namespace uowAPI.Services
             return (await _context.SaveChangesAsync() > 0);
         }
 
-        public void UpdateTransaction(Transaction transaction)
+        public void UpdateTransactionAsync(Transaction transaction)
         {
             // Nothing to do - patch takes care of it for us.
         }

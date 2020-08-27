@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Connections;
 using Microsoft.AspNetCore.Hosting;
@@ -11,8 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 using uow.Entities;
 using uow.Models;
+using uowAPI.Services;
 
 namespace uow
 {
@@ -34,11 +33,21 @@ namespace uow
 
             //services.AddDbContextPool<uowContext>(opt => 
             //    opt.UseSqlServer(Configuration.GetConnectionString(builder.ConnectionString)));                                    
+            services.AddMvc();
 
             services.AddDbContextPool<uowContext>(opt =>
                 opt.UseSqlServer(Configuration.GetConnectionString("TicketechConnection")));
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
+            //services.AddControllers();
+
+            // Add application services.
+            services.AddTransient<ITransactionsRepository, TransactionsRepository>();
+            services.AddTransient<IGaragesRepository, GaragesRepository>();
+            services.AddTransient<ICustomersRepository, CustomersRepository>();
+            services.AddTransient<IVehiclesRepository, VehiclesRepository>();
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

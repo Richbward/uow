@@ -9,11 +9,9 @@ namespace uow.Models
 {
     public class VehicleModel
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
-        public Guid GUID { get; set; }
-
-        public int CustomerId { get; set; }
+        public Guid CustomerId { get; set; }
 
         public string PlateNumber { get; set; }
         

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using uow.Entities;
 
 namespace uowAPI.Migrations
 {
     [DbContext(typeof(uowContext))]
-    partial class uowContextModelSnapshot : ModelSnapshot
+    [Migration("20200825171423_AddTicketechTablesToDB2")]
+    partial class AddTicketechTablesToDB2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -11,9 +11,7 @@ namespace uowAPI.Migrations
                 name: "Customers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    GUID = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     Prefix = table.Column<string>(maxLength: 25, nullable: true),
                     FirstName = table.Column<string>(maxLength: 100, nullable: false),
                     MiddleName = table.Column<string>(maxLength: 50, nullable: true),
@@ -40,9 +38,7 @@ namespace uowAPI.Migrations
                 name: "Garages",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    GUID = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(maxLength: 100, nullable: false),
                     Street1 = table.Column<string>(maxLength: 100, nullable: false),
                     Street2 = table.Column<string>(maxLength: 50, nullable: true),
@@ -62,32 +58,11 @@ namespace uowAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Transactions",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    GUID = table.Column<Guid>(nullable: false),
-                    GarageId = table.Column<int>(nullable: false),
-                    VehicleId = table.Column<int>(nullable: false),
-                    Entered = table.Column<DateTime>(nullable: false),
-                    Exited = table.Column<DateTime>(nullable: false),
-                    Discount = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
-                    Charge = table.Column<decimal>(type: "decimal(5, 2)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Transactions", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Vehicles",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    GUID = table.Column<Guid>(nullable: false),
-                    CustomerId = table.Column<int>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
+                    CustomerId = table.Column<Guid>(nullable: false),
                     PlateNumber = table.Column<string>(maxLength: 20, nullable: false),
                     State = table.Column<string>(maxLength: 50, nullable: false),
                     Make = table.Column<string>(maxLength: 50, nullable: true),
@@ -96,22 +71,72 @@ namespace uowAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Vehicles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Vehicles_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Transactions",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    GarageId = table.Column<Guid>(nullable: false),
+                    VehicleId = table.Column<Guid>(nullable: false),
+                    Entered = table.Column<DateTime>(nullable: false),
+                    Exited = table.Column<DateTime>(nullable: false),
+                    Discount = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
+                    Charge = table.Column<decimal>(type: "decimal(5, 2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Transactions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Transactions_Garages_GarageId",
+                        column: x => x.GarageId,
+                        principalTable: "Garages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Transactions_Vehicles_VehicleId",
+                        column: x => x.VehicleId,
+                        principalTable: "Vehicles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transactions_GarageId",
+                table: "Transactions",
+                column: "GarageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transactions_VehicleId",
+                table: "Transactions",
+                column: "VehicleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Vehicles_CustomerId",
+                table: "Vehicles",
+                column: "CustomerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Customers");
+                name: "Transactions");
 
             migrationBuilder.DropTable(
                 name: "Garages");
 
             migrationBuilder.DropTable(
-                name: "Transactions");
+                name: "Vehicles");
 
             migrationBuilder.DropTable(
-                name: "Vehicles");
+                name: "Customers");
         }
     }
 }
