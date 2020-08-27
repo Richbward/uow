@@ -10,12 +10,9 @@ namespace uow.Entities
 {
     [Table("Customers")]
     public class Customer
-    {
+    {        
         [Key]
-        public int Id { get; set; }
-
-        [Required] 
-        public Guid GUID { get; set; }
+        public Guid Id { get; set; }
 
         [MaxLength(25)] 
         public string Prefix { get; set; }

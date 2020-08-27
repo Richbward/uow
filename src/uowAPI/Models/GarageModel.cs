@@ -10,9 +10,7 @@ namespace uow.Models
 {
     public class GarageModel
     {
-        public int Id { get; set; }
-
-        public Guid GUID { get; set; }
+        public Guid Id { get; set; }
 
         public string Name { get; set; }
         

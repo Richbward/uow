@@ -11,13 +11,11 @@ namespace uow.Entities
     public class Vehicle
     {
         [Key]
-        public int Id { get; set; }
-
-        [Required]
-        public Guid GUID { get; set; }
+        public Guid Id { get; set; }
 
         [ForeignKey("Customer")] 
-        public int CustomerId { get; set; }
+        public Guid CustomerId { get; set; }
+        public Customer Customer { get; set; }
 
         [Required]
         [MaxLength(20)]
