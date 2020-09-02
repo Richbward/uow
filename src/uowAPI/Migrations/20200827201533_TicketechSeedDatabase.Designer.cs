@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using uow.Entities;
 
 namespace uowAPI.Migrations
 {
     [DbContext(typeof(uowContext))]
-    partial class uowContextModelSnapshot : ModelSnapshot
+    [Migration("20200827201533_TicketechSeedDatabase")]
+    partial class TicketechSeedDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -161,20 +163,20 @@ namespace uowAPI.Migrations
 
                     b.ToTable("Garages");
 
-                    //b.HasData(
-                    //    new
-                    //    {
-                    //        Id = new Guid("f98fac6e-5cbf-42be-8cfb-1a22ccd224d1"),
-                    //        Active = true,
-                    //        City = "New York",
-                    //        ClientSince = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                    //        Contact = "Josh Murdock",
-                    //        Name = "NYC Parking West 145th Garage Corp.",
-                    //        Phone = "(646) 243-6930",
-                    //        State = "NY",
-                    //        Street1 = "53 Bradhurst Ave",
-                    //        Zip = "10039"
-                    //    });
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("f98fac6e-5cbf-42be-8cfb-1a22ccd224d1"),
+                            Active = true,
+                            City = "New York",
+                            ClientSince = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Contact = "Josh Murdock",
+                            Name = "NYC Parking West 145th Garage Corp.",
+                            Phone = "(646) 243-6930",
+                            State = "NY",
+                            Street1 = "53 Bradhurst Ave",
+                            Zip = "10039"
+                        });
                 });
 
             modelBuilder.Entity("uow.Entities.Transaction", b =>

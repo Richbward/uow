@@ -21,6 +21,12 @@ namespace uow
         public Startup(IConfiguration configuration) => Configuration = configuration;
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllersWithViews()
+                .AddJsonOptions(options =>
+                {
+                    // set to true to indent the JSON output
+                    options.JsonSerializerOptions.WriteIndented = true;
+                });
             //dotnet user-secrets set "UserID" "TicketechAdmin"
             //dotnet user-secrets set "Password" "dieGo123!"
 
@@ -39,7 +45,6 @@ namespace uow
                 opt.UseSqlServer(Configuration.GetConnectionString("TicketechConnection")));
 
             services.AddControllers().AddNewtonsoftJson();
-            //services.AddControllers();
 
             // Add application services.
             services.AddTransient<ITransactionsRepository, TransactionsRepository>();

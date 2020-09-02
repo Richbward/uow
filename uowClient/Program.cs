@@ -6,16 +6,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using uowAPI.Entities;
 
-namespace uow
+namespace uowClient
 {
     public class Program
     {
         public static void Main(string[] args)
         {
-            // TODO - Comment out until working
-            //CreateHostBuilder(args).Build().MigrateDatabase().Run();
             CreateHostBuilder(args).Build().Run();
         }
 
